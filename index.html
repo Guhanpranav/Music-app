@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" integrity="sha512-PgQMlq+nqFLV4ylk1gwUOgm6CtIIXkKwaIHp/PAIWHzig/lKZSEGKEysh0TCVbHJXCLN7WetD8TFecIky75ZfQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link rel="stylesheet" href="main.css"/>
+    </head>
+    <body>
+
+        <div class="main_div">
+            <div class="music_container">
+                <h2 id="title">RAKITA RAKITA</h2>
+                <h3 id="artist"> Santhosh Narayanan</h3>
+                <div class="img_container">
+                     <img src="images/m1.jpg" >
+
+                </div>
+                <audio src="mp3/m1.mp3"></audio>
+
+                <!--controls-->
+                <div class="music_controls">
+                    <i class="fas fa-backward" id="prev" title="previous"></i>
+                    <i class="fas fa-play main_button" id="play" title="play"></i>
+                    <i class="fas fa-forward" id="next" title="next"></i>
+
+                </div>
+            </div>
+        </div>
+        <script>
+            const music = document.querySelector("audio");
+            const img = document.querySelector("img");
+            const play = document.getElementById('play');
+            const artist = document.getElementById('artist');
+            const title= document.getElementById('title');
+            const previous= document.getElementById('previous');
+            const next = document.getElementById('next');
+
+            const songs = [
+                {
+                name:"m1",
+                title: "RAKITA RAKITA",
+                artist:" Santhosh Narayanan",
+                img:"m1",
+            },
+            {
+                name:"m2",
+                title: "SEMMA BODHA",
+                artist:"Sandy",
+                img:"m2",
+            },
+            {
+                name:"m3",
+                title: "Bahubalikku Oru",
+                artist:"Hip Hop Aadhi",
+                img:"m3",
+            },
+            {
+                name:"m4",
+                title: "Bodhai kaname",
+                artist:"Aniruth",
+                img:"m4",
+            },
+            {
+                name:"m5",
+                title: "nee paartha",
+                artist:"Vijay Yesudas,Swetha Mohan",
+                img:"m5",
+            },
+            {
+                name:"m6",
+                title: "Ayyayo Nenju",
+                artist:"S.P.Balasubrahmanyam",
+                img:"m6",
+            },
+
+        ]
+
+           let isPlaying = false;
+           // for play
+            const playMusic = () => {
+                isPlaying= true;
+                music.play();
+                play.classList.replace("fa-play","fa-pause");
+                img.classList.add("anime");
+                
+                
+                
+                }
+//for pause
+                const pauseMusic = () => {
+                isPlaying= false;
+                music.pause();
+                play.classList.replace("fa-pause","fa-play");
+                img.classList.remove ("anime");
+            };
+
+            play.addEventListener('click',() => {
+            //  if(isPlaying){
+            //      pauseMusic();
+            //  }
+            //  else{
+            //      playMusic();
+           //   }
+
+              isPlaying ? pauseMusic() : playMusic();
+            });
+          // music data change
+
+          const loadSong = (songs) =>{
+              title.textContent=songs.title;
+              artist.textContent=songs.artist;
+              music.src="mp3/"+songs.name+ ".mp3";
+              img.src="images/" +songs.img+ ".jpg";
+              
+          };
+          songIndex = 0;
+        //   loadSong(songs[1]);
+
+          const nextSong= () => {
+              songIndex = (songIndex + 1 )% songs.length;
+            loadSong(songs[songIndex]);
+            playMusic();
+          }
+
+          const prevSong= () => {
+            songIndex = (songIndex - 1 + songs.length) % songs.length;
+            loadSong(songs[songIndex]);
+            playMusic();
+          }
+
+          next.addEventListener('click',nextSong);
+          prev.addEventListener('click',prevSong);
+
+
+        </script>
+    </body>
+</html>
